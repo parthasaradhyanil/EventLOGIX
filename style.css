@@ -1,51 +1,117 @@
-/* Variables for easy color changes */
+/* --- THEME VARIABLES --- */
 :root {
-    --cet-teal: #004d40;
+    --primary: #004d40;
+    --secondary: #00796b;
     --accent: #ff9800;
     --bg: #f4f7f6;
+    --card: #ffffff;
+    --text: #333333;
+    --border: #dddddd;
 }
 
-body { background: var(--bg); font-family: sans-serif; margin: 0; }
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
 
-header { background: var(--cet-teal); color: white; padding: 20px; text-align: center; }
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
 
-main { max-width: 1000px; margin: auto; padding: 20px; }
+header {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
 
-/* View Switching Logic */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* --- UI CONTROLS --- */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* --- LIST VIEW --- */
 #list-view, #calendar-view { display: none; }
 #list-view.active, #calendar-view.active { display: block; }
 
-/* Navigation Buttons */
-.controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-.toggle-btn { padding: 10px 20px; cursor: pointer; border: 1px solid var(--cet-teal); background: white; }
-.toggle-btn.active { background: var(--cet-teal); color: white; }
-
-/* The Card Grid */
-.event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-.card { 
-    background: white; 
-    padding: 20px; 
-    border-top: 5px solid var(--cet-teal); 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
 }
 
-.card h3 { color: var(--cet-teal); margin-top: 0; }
+.card {
+    background: var(--card);
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+}
 
-.btn-reg { 
-    display: block; 
-    background: var(--accent); 
-    color: white; 
-    text-align: center; 
-    padding: 10px; 
-    text-decoration: none; 
+.card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+.club-tag { font-size: 0.85rem; color: #666; font-style: italic; margin-bottom: 1rem; }
+.details { font-size: 0.9rem; margin-bottom: 0.4rem; }
+.details b { display: inline-block; width: 75px; }
+
+/* --- BADGES & BUTTONS --- */
+.badge-row { margin: 1rem 0; display: flex; gap: 0.5rem; }
+.badge { padding: 0.3rem 0.6rem; font-size: 0.7rem; font-weight: bold; color: white; text-transform: uppercase; }
+.bg-free { background: #2e7d32; }
+.bg-paid { background: #c62828; }
+.bg-dl   { background: #1565c0; }
+
+.btn-reg {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--accent);
+    color: white;
+    text-align: center;
+    text-decoration: none;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: auto;
 }
 
-/* Calendar Styles */
-.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); background: #ddd; gap: 1px; }
-.cal-cell { background: white; min-height: 80px; padding: 5px; font-size: 0.8rem; }
+/* --- CALENDAR --- */
+.cal-wrapper { background: white; border: 1px solid var(--border); }
+.cal-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--border); gap: 1px; }
+.cal-cell { background: white; min-height: 100px; padding: 0.4rem; }
+.cal-header-cell { background: #f8f8f8; padding: 0.5rem; text-align: center; font-weight: bold; font-size: 0.8rem; }
+.cal-ev-link {
+    display: block; background: var(--secondary); color: white; font-size: 0.65rem;
+    padding: 2px 4px; margin-top: 3px; text-decoration: none; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
+}
+.cal-ev-link.paid { background: #c62828; }
 .cal-header { background: #eee; text-align: center; font-weight: bold; padding: 5px; }
 .cal-event { background: var(--cet-teal); color: white; display: block; margin-top: 2px; padding: 2px; text-decoration: none; font-size: 0.7rem; }
