@@ -1,72 +1,70 @@
-/* --- 1. THE DATA STRUCTURE --- */
+// 1. Data: Add your CET events here
 const events = [
-    { id: 1, title: "Entrepreneurship Summit", club: "E-Cell CET", date: "2026-07-15", location: "Auditorium", isFree: false, costText: "Paid (₹350)", dutyLeave: false, formLink: "#" },
-    { id: 2, title: "Cybersecurity Bootcamp", club: "TinkerHub CET", date: "2026-04-18", location: "CS Seminar Hall", isFree: false, costText: "Paid (₹150)", dutyLeave: false, formLink: "#" },
-    { id: 3, title: "Eco Car Assembly", club: "Eco Car Club", date: "2026-04-25", location: "Mech Workshop", isFree: true, costText: "Free", dutyLeave: true, formLink: "#" },
-    { id: 4, title: "AI & ML Workshop", club: "AI Club CET", date: "2026-05-05", location: "CS Lab 2", isFree: false, costText: "Paid (₹200)", dutyLeave: false, formLink: "#" },
-    { id: 5, title: "Robotics Challenge", club: "Robotics Club", date: "2026-05-15", location: "Main Block", isFree: true, costText: "Free", dutyLeave: true, formLink: "#" }
+    { title: "Entrepreneurship Summit", date: "2026-07-15", club: "E-Cell", link: "#" },
+    { title: "Cybersecurity Bootcamp", date: "2026-04-18", club: "TinkerHub", link: "#" },
+    { title: "Eco Car Assembly", date: "2026-04-25", club: "Eco Car Club", link: "#" }
 ];
 
-let current = new Date(2026, 3, 1); // Start at April 2026
+let viewDate = new Date(2026, 3, 1); // April 2026
 
+// 2. Switch between List and Calendar
 function switchView(view) {
-    document.getElementById('list-view').classList.toggle('active', view === 'list');
-    document.getElementById('calendar-view').classList.toggle('active', view === 'calendar');
+    document.getElementById('list-view').className = (view === 'list' ? 'active' : '');
+    document.getElementById('calendar-view').className = (view === 'calendar' ? 'active' : '');
+    
     document.getElementById('btn-list').classList.toggle('active', view === 'list');
     document.getElementById('btn-calendar').classList.toggle('active', view === 'calendar');
+
     if(view === 'calendar') renderCalendar();
 }
 
+// 3. Create the Cards
 function renderList() {
     const container = document.getElementById('event-container');
     container.innerHTML = events.map(e => `
         <div class="card">
             <h3>${e.title}</h3>
-            <p class="club-tag">${e.club}</p>
-            <div class="details"><b>Date:</b> ${e.date}</div>
-            <div class="details"><b>Venue:</b> ${e.location}</div>
-            <div class="badge-row">
-                <span class="badge ${e.isFree ? 'bg-free' : 'bg-paid'}">${e.costText}</span>
-                ${e.dutyLeave ? '<span class="badge bg-dl">Duty Leave</span>' : ''}
-            </div>
-            <a href="${e.formLink}" target="_blank" class="btn-reg">Register Now</a>
+            <p><b>Club:</b> ${e.club}</p>
+            <p><b>Date:</b> ${e.date}</p>
+            <a href="${e.link}" class="btn-reg">Register</a>
         </div>
     `).join('');
 }
 
+// 4. Create the Calendar
 function renderCalendar() {
     const grid = document.getElementById('cal-grid');
     const label = document.getElementById('cal-label');
     grid.innerHTML = "";
     
-    const y = current.getFullYear();
-    const m = current.getMonth();
-    label.textContent = current.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    label.textContent = viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => {
-        grid.innerHTML += `<div class="cal-header-cell">${d}</div>`;
-    });
+    // Days Header
+    ['S','M','T','W','T','F','S'].forEach(d => grid.innerHTML += `<div class="cal-header">${d}</div>`);
 
-    const start = new Date(y, m, 1).getDay();
-    const days = new Date(y, m + 1, 0).getDate();
+    const startDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+    const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
 
-    for (let i = 0; i < start; i++) grid.innerHTML += `<div class="cal-cell" style="background:#f9f9f9"></div>`;
+    // Empty cells for previous month days
+    for (let i = 0; i < startDay; i++) grid.innerHTML += `<div class="cal-cell"></div>`;
 
-    for (let d = 1; d <= days; d++) {
-        const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const dayEvents = events.filter(e => e.date === ds);
+    // Actual days
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `2026-04-${d.toString().padStart(2, '0')}`; // Simplified for April
+        const dayEvents = events.filter(e => e.date === dateStr);
+        
         grid.innerHTML += `
             <div class="cal-cell">
-                <span style="font-size:0.75rem; color:#999; font-weight:bold;">${d}</span>
-                ${dayEvents.map(e => `<a href="${e.formLink}" class="cal-ev-link ${e.isFree ? '' : 'paid'}">${e.title}</a>`).join('')}
+                ${d}
+                ${dayEvents.map(e => `<a href="${e.link}" class="cal-event">${e.title}</a>`).join('')}
             </div>`;
     }
 }
 
 function changeMonth(dir) {
-    current.setMonth(current.getMonth() + dir);
+    viewDate.setMonth(viewDate.getMonth() + dir);
     renderCalendar();
 }
 
-// Ensure data loads when the page opens
-window.onload = renderList;
+// Start by rendering the list
+renderList();
