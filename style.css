@@ -1,338 +1,115 @@
-/* --- GLOBAL VARIABLES --- */
-/* The :root selector creates variables that can be used anywhere in the CSS */
+/* --- THEME VARIABLES --- */
 :root {
-    --primary-color: #004d40; /* Dark green theme color */
-    --secondary-color: #00796b; /* Lighter green for accents */
-    --accent-color: #ff9800; /* Orange for call-to-action buttons */
-    --bg-color: #f4f7f6; /* Very light gray for the page background */
-    --text-color: #333; /* Dark gray for highly readable text */
-    --card-bg: #ffffff; /* Pure white for event cards */
+    --primary: #004d40;
+    --secondary: #00796b;
+    --accent: #ff9800;
+    --bg: #f4f7f6;
+    --card: #ffffff;
+    --text: #333333;
+    --border: #dddddd;
 }
 
-/* --- BROWSER RESET --- */
-/* The asterisk (*) targets every single element on the page */
+/* --- RESET & BASE --- */
 * {
-    /* Ensures padding and borders don't increase the total width of elements */
-    box-sizing: border-box; 
-    /* Removes default browser margins */
-    margin: 0; 
-    /* Removes default browser padding */
-    padding: 0; 
-    /* Sets a clean, modern font for the whole site */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* --- BASE STYLES --- */
 body {
-    /* Applies the light gray background color */
-    background-color: var(--bg-color); 
-    /* Applies the dark gray text color */
-    color: var(--text-color); 
-    /* Increases space between lines of text for better reading */
-    line-height: 1.6; 
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
 }
 
-/* --- HEADER STYLES --- */
 header {
-    /* Uses the dark green theme color for the top banner */
-    background-color: var(--primary-color); 
-    /* Makes the text inside the header white */
-    color: white; 
-    /* Adds space inside the header (top/bottom: 2rem, left/right: 1rem) */
-    padding: 2rem 1rem; 
-    /* Centers the text horizontally */
-    text-align: center; 
-    /* Adds a subtle drop shadow below the header */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
 }
 
-header h1 {
-    /* Makes the main title very large */
-    font-size: 2.5rem; 
-    /* Adds a small space below the title */
-    margin-bottom: 0.5rem; 
-}
-
-/* --- MAIN LAYOUT --- */
 main {
-    /* Adds space around the main content area */
-    padding: 2rem 1rem; 
-    /* Prevents the content from stretching too wide on large screens */
-    max-width: 1200px; 
-    /* Automatically centers the main content box horizontally */
-    margin: 0 auto; 
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
 }
 
-/* --- NAVIGATION BUTTONS --- */
+/* --- UI CONTROLS --- */
 .controls {
-    /* Uses flexbox to arrange items in a row */
-    display: flex; 
-    /* Centers the buttons horizontally inside the row */
-    justify-content: center; 
-    /* Adds exactly 1rem of space between the buttons */
-    gap: 1rem; 
-    /* Pushes content below the controls down by 2rem */
-    margin-bottom: 2rem; 
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .toggle-btn {
-    /* Adds space inside the button (top/bottom: 0.75rem, left/right: 1.5rem) */
-    padding: 0.75rem 1.5rem; 
-    /* Creates a 2px solid green border */
-    border: 2px solid var(--primary-color); 
-    /* Makes the background see-through initially */
-    background-color: transparent; 
-    /* Colors the text green */
-    color: var(--primary-color); 
-    /* Makes the button text bold */
-    font-weight: bold; 
-    /* Rounds the corners of the button heavily to look like a pill */
-    border-radius: 30px; 
-    /* Changes the mouse cursor to a pointer (hand) on hover */
-    cursor: pointer; 
-    /* Makes color changes happen smoothly over 0.3 seconds */
-    transition: all 0.3s ease; 
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* Styles applied when button is hovered OR has the 'active' class */
-.toggle-btn.active, 
-.toggle-btn:hover {
-    /* Fills the button with the green color */
-    background-color: var(--primary-color); 
-    /* Changes the text color to white */
-    color: white; 
+.toggle-btn.active {
+    background: var(--primary);
+    color: white;
 }
 
-/* --- VIEW SWITCHING LOGIC --- */
-/* By default, hide both the list and the calendar */
-#list-view, #calendar-view {
-    display: none; 
-    /* Applies a fade-in animation when they appear */
-    animation: fadeIn 0.5s ease-in-out; 
+/* --- LIST VIEW --- */
+#list-view, #calendar-view { display: none; }
+#list-view.active, #calendar-view.active { display: block; }
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
 }
 
-/* If a view has the 'active' class, make it visible */
-#list-view.active, #calendar-view.active {
-    display: block; 
-}
-
-/* Defines the fade-in animation frames */
-@keyframes fadeIn {
-    /* Start fully transparent and pushed down slightly */
-    from { opacity: 0; transform: translateY(10px); } 
-    /* End fully visible and in normal position */
-    to { opacity: 1; transform: translateY(0); } 
-}
-
-/* --- CARD GRID LAYOUT --- */
-.grid-container {
-    /* Uses CSS Grid for a 2D layout */
-    display: grid; 
-    /* Automatically creates columns. Cards stretch but won't shrink below 320px */
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-    /* Adds space between the grid cards */
-    gap: 1.5rem; 
-}
-
-/* --- EVENT CARD STYLES --- */
 .card {
-    /* Sets the card background to white */
-    background: var(--card-bg); 
-    /* Rounds the corners of the card slightly */
-    border-radius: 12px; 
-    /* Adds space inside the card */
-    padding: 1.5rem; 
-    /* Adds a very light drop shadow */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-    /* Adds a thick green stripe to the top of the card */
-    border-top: 5px solid var(--primary-color); 
-    /* Uses flexbox to arrange contents vertically */
-    display: flex; 
-    /* Sets the flex direction to column (top to bottom) */
-    flex-direction: column; 
-    /* Prepares the card for smooth hover animations */
-    transition: transform 0.2s, box-shadow 0.2s; 
+    background: var(--card);
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--primary);
+    display: flex;
+    flex-direction: column;
 }
 
-.card:hover {
-    /* Moves the card up by 5 pixels on hover (lift effect) */
-    transform: translateY(-5px); 
-    /* Makes the shadow larger/darker on hover */
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1); 
+.card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+.club-tag { font-size: 0.85rem; color: #666; font-style: italic; margin-bottom: 1rem; }
+.details { font-size: 0.9rem; margin-bottom: 0.4rem; }
+.details b { display: inline-block; width: 75px; }
+
+/* --- BADGES & BUTTONS --- */
+.badge-row { margin: 1rem 0; display: flex; gap: 0.5rem; }
+.badge { padding: 0.3rem 0.6rem; font-size: 0.7rem; font-weight: bold; color: white; text-transform: uppercase; }
+.bg-free { background: #2e7d32; }
+.bg-paid { background: #c62828; }
+.bg-dl   { background: #1565c0; }
+
+.btn-reg {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--accent);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto;
 }
 
-.card h3 {
-    /* Colors the event title green */
-    color: var(--primary-color); 
-    /* Adds a tiny space below the title */
-    margin-bottom: 0.5rem; 
+/* --- CALENDAR --- */
+.cal-wrapper { background: white; border: 1px solid var(--border); }
+.cal-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--border); gap: 1px; }
+.cal-cell { background: white; min-height: 100px; padding: 0.4rem; }
+.cal-header-cell { background: #f8f8f8; padding: 0.5rem; text-align: center; font-weight: bold; font-size: 0.8rem; }
+.cal-ev-link {
+    display: block; background: var(--secondary); color: white; font-size: 0.65rem;
+    padding: 2px 4px; margin-top: 3px; text-decoration: none; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
 }
-
-.card .club-name {
-    /* Makes the club name italic */
-    font-style: italic; 
-    /* Colors the club name medium gray */
-    color: #666; 
-    /* Adds space below the club name */
-    margin-bottom: 1rem; 
-    /* Adds a thin gray line below the club name */
-    border-bottom: 1px solid #eee; 
-    /* Adds space between the text and the bottom border */
-    padding-bottom: 0.5rem; 
-}
-
-.detail-row {
-    /* Uses flexbox to align the label and data horizontally */
-    display: flex; 
-    /* Adds space below each detail row */
-    margin-bottom: 0.5rem; 
-}
-
-/* --- BADGES --- */
-.badges {
-    /* Uses flexbox to put badges in a row */
-    display: flex; 
-    /* Adds space between badges */
-    gap: 0.5rem; 
-    /* Adds space above and below the badge container */
-    margin: 1.5rem 0; 
-}
-
-.badge {
-    /* Adds space inside the badge */
-    padding: 0.35rem 0.75rem; 
-    /* Rounds the edges of the badge into a pill shape */
-    border-radius: 20px; 
-    /* Makes the badge text small */
-    font-size: 0.8rem; 
-    /* Makes the badge text bold */
-    font-weight: bold; 
-    /* Makes the badge text white */
-    color: white; 
-}
-
-/* specific colors for different badge states */
-.bg-paid { background-color: #d32f2f; } /* Red for paid */
-.bg-free { background-color: #388e3c; } /* Green for free */
-.bg-leave { background-color: #1976d2; } /* Blue for duty leave */
-.bg-no-leave { background-color: #757575; } /* Gray for no leave */
-
-/* --- REGISTER BUTTON --- */
-.btn-register {
-    /* Pushes the button to the absolute bottom of the flex card */
-    margin-top: auto; 
-    /* Makes the link behave like a block (takes full width) */
-    display: block; 
-    /* Adds space inside the button */
-    padding: 0.8rem; 
-    /* Colors the button orange */
-    background-color: var(--accent-color); 
-    /* Colors the text white */
-    color: white; 
-    /* Removes the default underline from the link */
-    text-decoration: none; 
-    /* Rounds the corners slightly */
-    border-radius: 6px; 
-    /* Centers the text inside the button */
-    text-align: center; 
-    /* Prepares background color to change smoothly on hover */
-    transition: background-color 0.2s; 
-}
-
-.btn-register:hover {
-    /* Darkens the orange slightly on hover */
-    background-color: #e68a00; 
-}
-
-/* --- CALENDAR LAYOUT --- */
-.calendar-header {
-    /* Uses flexbox for the top calendar bar */
-    display: flex; 
-    /* Pushes Prev left, Title center, Next right */
-    justify-content: space-between; 
-    /* Aligns all items vertically in the middle */
-    align-items: center; 
-    /* Sets the background to white */
-    background: white; 
-    /* Adds space inside the header */
-    padding: 1rem; 
-    /* Rounds the corners of the header box */
-    border-radius: 8px; 
-    /* Adds space below the header */
-    margin-bottom: 1rem; 
-}
-
-.calendar-grid {
-    /* Uses CSS Grid for the 7-day calendar layout */
-    display: grid; 
-    /* Forces exactly 7 columns of equal width */
-    grid-template-columns: repeat(7, 1fr); 
-    /* Adds a 5px gap between squares (acts as border lines) */
-    gap: 5px; 
-    /* Makes the background gray (visible through the gaps) */
-    background: #ddd; 
-    /* Adds a gray border around the whole calendar */
-    border: 1px solid #ddd; 
-}
-
-.calendar-day-header {
-    /* Colors the day headers (Sun, Mon) green */
-    background: var(--primary-color); 
-    /* Colors the header text white */
-    color: white; 
-    /* Adds space inside the header */
-    padding: 0.5rem; 
-    /* Centers the text */
-    text-align: center; 
-}
-
-.calendar-day {
-    /* Makes individual day squares white */
-    background: white; 
-    /* Ensures the square is at least 100px tall even if empty */
-    min-height: 100px; 
-    /* Adds space inside the square */
-    padding: 0.5rem; 
-}
-
-.calendar-day.empty {
-    /* Makes padding squares light gray to differentiate them from active days */
-    background: #f9f9f9; 
-}
-
-.calendar-event {
-    /* Colors the small event bar light teal */
-    background: var(--secondary-color); 
-    /* Colors the text white */
-    color: white; 
-    /* Makes the text very small */
-    font-size: 0.75rem; 
-    /* Adds tiny padding inside the bar */
-    padding: 4px; 
-    /* Adds space below the bar so they stack neatly */
-    margin-bottom: 4px; 
-    /* Forces the text to stay on one single line */
-    white-space: nowrap; 
-    /* Hides any text that flows outside the box */
-    overflow: hidden; 
-    /* Adds '...' if the text is too long for the box */
-    text-overflow: ellipsis; 
-}
-
-/* Modifies the event bar to be red if it costs money */
-.calendar-event.paid { background: #d32f2f; }
-
-/* --- MOBILE RESPONSIVE RULES --- */
-/* These rules apply ONLY when the screen is 768px wide or smaller */
-@media (max-width: 768px) {
-    /* Changes the 7-column calendar grid to a single 1-column list */
-    .calendar-grid { grid-template-columns: 1fr; } 
-    /* Hides the desktop day headers (Sun, Mon, Tue) */
-    .calendar-day-header { display: none; } 
-    /* Hides the empty padding squares (they aren't needed in a list) */
-    .calendar-day.empty { display: none; } 
-    /* Allows day boxes to shrink to fit text height */
-    .calendar-day { min-height: auto; } 
-    /* Allows event titles to wrap to the next line on mobile */
-    .calendar-event { white-space: normal; } 
-}
+.cal-ev-link.paid { background: #c62828; }
