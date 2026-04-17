@@ -119,18 +119,36 @@
 
 
         ];
-let current = new Date(2026, 3, 1); // Start at April 2026
+/**
+ * CALENDAR & EVENT LISTER SYSTEM
+ * Current date state initialized to April 2026.
+ */
+let current = new Date(2026, 3, 1); 
 
+/**
+ * Toggles visibility between the List View and the Calendar View.
+ * @param {string} view - Either 'list' or 'calendar'
+ */
 function switchView(view) {
+    // Toggle CSS classes to show/hide the appropriate containers
     document.getElementById('list-view').classList.toggle('active', view === 'list');
     document.getElementById('calendar-view').classList.toggle('active', view === 'calendar');
+    
+    // Update button styling to show which view is currently selected
     document.getElementById('btn-list').classList.toggle('active', view === 'list');
     document.getElementById('btn-calendar').classList.toggle('active', view === 'calendar');
+    
+    // Re-render calendar logic if switching to calendar view
     if(view === 'calendar') renderCalendar();
 }
 
+/**
+ * Iterates through the 'events' array and generates HTML cards for the list view.
+ */
 function renderList() {
     const container = document.getElementById('event-container');
+    
+    // Maps event data to HTML template strings
     container.innerHTML = events.map(e => `
         <div class="card">
             <h3>${e.title}</h3>
@@ -146,39 +164,65 @@ function renderList() {
     `).join('');
 }
 
+/**
+ * Generates a dynamic 7-column calendar grid for the currently selected month.
+ */
 function renderCalendar() {
     const grid = document.getElementById('cal-grid');
     const label = document.getElementById('cal-label');
-    grid.innerHTML = "";
+    grid.innerHTML = ""; // Clear existing grid
     
     const y = current.getFullYear();
     const m = current.getMonth();
+    
+    // Update the Month/Year display label
     label.textContent = current.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
+    // Add weekday headers (Sun-Sat)
     ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => {
         grid.innerHTML += `<div class="cal-header-cell">${d}</div>`;
     });
 
+    // Calculate the day of the week the month starts on and total days in month
     const start = new Date(y, m, 1).getDay();
     const days = new Date(y, m + 1, 0).getDate();
 
-    for (let i = 0; i < start; i++) grid.innerHTML += `<div class="cal-cell" style="background:#f9f9f9"></div>`;
+    // Create empty cells for days from the previous month
+    for (let i = 0; i < start; i++) {
+        // Updated background color to use standard color name 'whitesmoke'
+        grid.innerHTML += `<div class="cal-cell" style="background: whitesmoke;"></div>`;
+    }
 
+    // Generate cells for each day of the current month
     for (let d = 1; d <= days; d++) {
+        // Format date string to match event data format (YYYY-MM-DD)
         const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        
+        // Filter the events array for items matching this specific day
         const dayEvents = events.filter(e => e.date === ds);
+        
         grid.innerHTML += `
             <div class="cal-cell">
-                <span style="font-size:0.75rem; color:#999; font-weight:bold;">${d}</span>
-                ${dayEvents.map(e => `<a href="${e.formLink}"  target="_blank" class="cal-ev-link  ${e.isFree ? '' : 'paid'}">${e.title}</a>`).join('')}
+                <span style="font-size:0.75rem; color: lightgray; font-weight:bold;">${d}</span>
+                ${dayEvents.map(e => `
+                    <a href="${e.formLink}" target="_blank" class="cal-ev-link">
+                        ${e.title}
+                    </a>
+                `).join('')}
             </div>`;
     }
 }
 
+/**
+ * Updates the 'current' date state by adding/subtracting months.
+ * @param {number} dir - Use 1 for next month, -1 for previous month.
+ */
 function changeMonth(dir) {
     current.setMonth(current.getMonth() + dir);
     renderCalendar();
 }
 
-// Ensure data loads when the page opens
+/**
+ * Initialization: Trigger the list view rendering as soon as the page loads.
+ */
 window.onload = renderList;
