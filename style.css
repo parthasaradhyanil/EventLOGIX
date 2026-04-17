@@ -1,117 +1,376 @@
-/* --- THEME VARIABLES --- */
+/* --- 1. CORE THEME & VARIABLES --- */
 :root {
-    --primary: #004d40;
-    --secondary: #00796b;
-    --accent: #ff9800;
-    --bg: #f4f7f6;
-    --card: #ffffff;
-    --text: #333333;
-    --border: #dddddd;
+    /* The main theme color used for headers and borders */
+    --primary: teal;    
+    
+    /* A lighter teal used for calendar event blocks */
+    --secondary: lightseagreen;  
+    
+    /* A bright color used to make the Register buttons pop */
+    --accent: orange;     
+    
+    /* A very light gray used for the background of the whole page */
+    --bg: whitesmoke;         
+    
+    /* Used for the background of the event cards */
+    --card: white;       
+    
+    /* Dark gray for standard text (easier to read than pure black) */
+    --text: darkslategray;       
+    
+    /* Light gray used for lines around cards and calendar grids */
+    --border: lightgray;     
 }
 
-/* --- RESET & BASE --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', system-ui, sans-serif;
+/* --- 2. RESET & BASE --- */
+* { 
+    /* Ensures padding and borders don't accidentally make elements wider */
+    box-sizing: border-box; 
+    
+    /* Removes all default browser margins */
+    margin: 0;              
+    
+    /* Removes all default browser padding */
+    padding: 0;             
+    
+    /* Sets the default font for the whole site */
+    font-family: 'Segoe UI', sans-serif; 
 }
 
-body {
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
+body { 
+    /* Uses the background variable defined at the top */
+    background-color: var(--bg); 
+    
+    /* Uses the standard text color variable */
+    color: var(--text);          
+    
+    /* Adds a little breathing room between lines of text */
+    line-height: 1.5;            
 }
 
-header {
-    background: var(--primary);
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
+/* --- 3. LAYOUT COMPONENTS --- */
+header { 
+    /* Sets the banner background to teal */
+    background: var(--primary); 
+    
+    /* Makes the text inside the banner white */
+    color: white;               
+    
+    /* Adds space inside the banner so text doesn't touch the edges */
+    padding: 1.5rem;            
+    
+    /* Centers the text perfectly */
+    text-align: center;         
 }
 
-main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 1.5rem;
+main { 
+    /* Prevents the content from stretching too wide on large screens */
+    max-width: 1100px; 
+    
+    /* Centers the main container in the middle of the screen */
+    margin: 0 auto;    
+    
+    /* Adds padding inside the main area */
+    padding: 1.5rem;   
 }
 
-/* --- UI CONTROLS --- */
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+/* --- 4. NAVIGATION & CONTROLS --- */
+.controls { 
+    /* Uses Flexbox to align items in a row */
+    display: flex;             
+    
+    /* Centers the buttons horizontally */
+    justify-content: center;   
+    
+    /* Adds a small gap between the two buttons */
+    gap: 0.5rem;               
+    
+    /* Adds space below the buttons to separate them from the content */
+    margin-bottom: 2rem;       
 }
 
 .toggle-btn {
-    padding: 0.6rem 1.2rem;
-    border: 1px solid var(--primary);
-    background: white;
-    color: var(--primary);
-    font-weight: bold;
-    cursor: pointer;
+    /* Adds inner spacing (top/bottom, left/right) */
+    padding: 0.6rem 1.2rem;            
+    
+    /* Gives the button a thin teal border */
+    border: 1px solid var(--primary);  
+    
+    /* Sets the button background to white */
+    background: white;                 
+    
+    /* Sets the text color to teal */
+    color: var(--primary);             
+    
+    /* Makes the button text bold */
+    font-weight: bold;                 
+    
+    /* Changes the mouse to a pointing hand icon when hovering */
+    cursor: pointer;                   
 }
 
-.toggle-btn.active {
-    background: var(--primary);
-    color: white;
+.toggle-btn.active { 
+    /* Flips the background to teal when this button is selected */
+    background: var(--primary); 
+    
+    /* Flips the text to white when selected */
+    color: white;               
 }
 
-/* --- LIST VIEW --- */
-#list-view, #calendar-view { display: none; }
-#list-view.active, #calendar-view.active { display: block; }
+/* --- 5. LIST VIEW (GRID) --- */
+#list-view, #calendar-view { 
+    /* Hides both sections by default */
+    display: none; 
+}
+
+#list-view.active, #calendar-view.active { 
+    /* Shows a section ONLY if it has the 'active' class attached to it */
+    display: block; 
+}
 
 .event-grid {
-    display: grid;
+    /* Turns on CSS Grid for automatic card layout */
+    display: grid; 
+    
+    /* Creates columns that fit the screen, minimum 300px wide */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.2rem;
+    
+    /* Adds space between the cards */
+    gap: 1.2rem;   
 }
 
 .card {
-    background: var(--card);
-    padding: 1.2rem;
-    border: 1px solid var(--border);
-    border-top: 5px solid var(--primary);
-    display: flex;
-    flex-direction: column;
+    /* Sets card background to white */
+    background: var(--card);                 
+    
+    /* Adds inner spacing */
+    padding: 1.2rem;                         
+    
+    /* Adds a light gray border around the whole card */
+    border: 1px solid var(--border);         
+    
+    /* Adds a thick teal decorative line at the top */
+    border-top: 5px solid var(--primary);    
+    
+    /* Uses flexbox inside the card so we can arrange the contents */
+    display: flex;                           
+    
+    /* Stacks the card's contents vertically (top to bottom) */
+    flex-direction: column;                  
 }
 
-.card h3 { color: var(--primary); margin-bottom: 0.5rem; }
-.club-tag { font-size: 0.85rem; color: #666; font-style: italic; margin-bottom: 1rem; }
-.details { font-size: 0.9rem; margin-bottom: 0.4rem; }
-.details b { display: inline-block; width: 75px; }
+.card h3 { 
+    /* Makes the event title teal */
+    color: var(--primary); 
+    
+    /* Adds a small space below the title */
+    margin-bottom: 0.5rem; 
+}
 
-/* --- BADGES & BUTTONS --- */
-.badge-row { margin: 1rem 0; display: flex; gap: 0.5rem; }
-.badge { padding: 0.3rem 0.6rem; font-size: 0.7rem; font-weight: bold; color: white; text-transform: uppercase; }
-.bg-free { background: #2e7d32; }
-.bg-paid { background: #c62828; }
-.bg-dl   { background: #1565c0; }
+.club-tag { 
+    /* Makes the text slightly smaller */
+    font-size: 0.85rem;    
+    
+    /* Uses a standard dark gray name instead of #666 */
+    color: dimgray;           
+    
+    /* Slants the text */
+    font-style: italic;    
+    
+    /* Adds space below the club name */
+    margin-bottom: 1rem;   
+}
+
+.details { 
+    /* Makes text slightly smaller than standard body text */
+    font-size: 0.9rem;      
+    
+    /* Adds space below the row */
+    margin-bottom: 0.4rem;  
+}
+
+.details b { 
+    /* Allows us to set a specific width on bold text */
+    display: inline-block;  
+    
+    /* Fixes the width so the actual dates/venues line up perfectly vertically */
+    width: 75px;            
+}
+
+/* --- 6. BADGES & BUTTONS --- */
+.badge-row { 
+    /* Adds space above and below the badges */
+    margin: 1rem 0;  
+    
+    /* Aligns badges in a horizontal row */
+    display: flex;   
+    
+    /* Adds a small gap between badges */
+    gap: 0.5rem;     
+}
+
+.badge { 
+    /* Adds inner spacing */
+    padding: 0.3rem 0.6rem;    
+    
+    /* Makes the text very small */
+    font-size: 0.7rem;         
+    
+    /* Makes text bold */
+    font-weight: bold;         
+    
+    /* Makes text white */
+    color: white;              
+    
+    /* Forces all letters to be CAPITALIZED */
+    text-transform: uppercase; 
+}
+
+.bg-free { 
+    /* Uses the standard color green for free events */
+    background: green; 
+} 
+
+.bg-paid { 
+    /* Uses the standard color red for paid events */
+    background: red; 
+} 
+
+.bg-dl { 
+    /* Uses the standard color blue for Duty Leave */
+    background: blue; 
+} 
 
 .btn-reg {
-    display: block;
-    width: 100%;
-    padding: 0.8rem;
-    background: var(--accent);
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: auto;
+    /* Makes the link act like a block element instead of standard text */
+    display: block;             
+    
+    /* Forces the button to stretch across the whole card width */
+    width: 100%;                
+    
+    /* Adds inner spacing for a larger click area */
+    padding: 0.8rem;            
+    
+    /* Uses the orange accent color */
+    background: var(--accent);  
+    
+    /* Makes text white */
+    color: white;               
+    
+    /* Centers the text */
+    text-align: center;         
+    
+    /* Removes the default underline from the link */
+    text-decoration: none;      
+    
+    /* Makes text bold */
+    font-weight: bold;          
+    
+    /* Pushes the button to the absolute bottom of the card */
+    margin-top: auto;           
 }
 
-/* --- CALENDAR --- */
-.cal-wrapper { background: white; border: 1px solid var(--border); }
-.cal-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--border); gap: 1px; }
-.cal-cell { background: white; min-height: 100px; padding: 0.4rem; }
-.cal-header-cell { background: #f8f8f8; padding: 0.5rem; text-align: center; font-weight: bold; font-size: 0.8rem; }
-.cal-ev-link {
-    display: block; background: var(--secondary); color: white; font-size: 0.65rem;
-    padding: 2px 4px; margin-top: 3px; text-decoration: none; overflow: hidden;
-    text-overflow: ellipsis; white-space: nowrap;
+/* --- 7. CALENDAR VIEW --- */
+.cal-wrapper { 
+    /* White background for the calendar area */
+    background: white; 
+    
+    /* Light gray border around the calendar */
+    border: 1px solid var(--border); 
 }
-.cal-ev-link.paid { background: #c62828; }
-.cal-header { background: #eee; text-align: center; font-weight: bold; padding: 5px; }
-.cal-event { background: var(--cet-teal); color: white; display: block; margin-top: 2px; padding: 2px; text-decoration: none; font-size: 0.7rem; }
+
+.cal-nav { 
+    /* Uses flexbox for the top calendar controls */
+    display: flex; 
+    
+    /* Pushes Prev to the left, Next to the right, Month to the middle */
+    justify-content: space-between; 
+    
+    /* Centers items vertically */
+    align-items: center;            
+    
+    /* Adds inner padding */
+    padding: 1rem; 
+    
+    /* Adds a line separating the header from the grid below */
+    border-bottom: 1px solid var(--border); 
+}
+
+.cal-grid { 
+    /* Turns on CSS grid for the days */
+    display: grid; 
+    
+    /* Forces exactly 7 equal columns for the days of the week */
+    grid-template-columns: repeat(7, 1fr); 
+    
+    /* Makes the background gray behind the cells */
+    background: var(--border);             
+    
+    /* Leaves a 1px gap between cells, letting the gray background peek through as grid lines */
+    gap: 1px;                              
+}
+
+.cal-cell { 
+    /* Makes the individual cell white */
+    background: white;        
+    
+    /* Ensures cells are at least 100px tall */
+    min-height: 100px;        
+    
+    /* Adds space inside the day square */
+    padding: 0.4rem;          
+}
+
+.cal-header-cell { 
+    /* Uses a standard light gray color for the Mon/Tue/Wed headers */
+    background: whitesmoke;      
+    
+    /* Adds padding */
+    padding: 0.5rem;          
+    
+    /* Centers the day text */
+    text-align: center;       
+    
+    /* Makes the text bold */
+    font-weight: bold; 
+    
+    /* Makes the text smaller */
+    font-size: 0.8rem; 
+}
+
+.cal-ev-link {
+    /* Makes the event link fill the cell horizontally */
+    display: block;                  
+    
+    /* Uses the lighter teal color for standard events */
+    background: var(--secondary);    
+    
+    /* Makes text white */
+    color: white; 
+    
+    /* Very small font to fit inside the square */
+    font-size: 0.65rem;              
+    
+    /* Tiny inner spacing */
+    padding: 2px 4px;                
+    
+    /* Tiny space above the event block */
+    margin-top: 3px;                 
+    
+    /* Removes underline from link */
+    text-decoration: none;           
+    
+    /* Hides text that goes beyond the box */
+    overflow: hidden;                
+    
+    /* Adds "..." to cut-off text */
+    text-overflow: ellipsis;         
+    
+    /* Forces text to stay on one single line */
+    white-space: nowrap;             
+}
+
+.cal-ev-link.paid { 
+    /* Uses the standard color red for paid events on the calendar */
+    background: red; 
+}
