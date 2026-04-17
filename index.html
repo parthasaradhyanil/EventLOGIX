@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventLOGIX | CET</title>
+    <title>EventLOGIX | CET Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
     <h1>EventLOGIX</h1>
-    <p>CET Campus Event Hub</p>
+    <p>CET Campus Event Portal</p>
 </header>
 
 <main>
@@ -24,12 +24,14 @@
     </div>
 
     <div id="calendar-view">
-        <div class="cal-nav">
-            <button onclick="changeMonth(-1)">Prev</button>
-            <h3 id="cal-label"></h3>
-            <button onclick="changeMonth(1)">Next</button>
+        <div class="cal-wrapper">
+            <div class="cal-nav">
+                <button class="toggle-btn" onclick="changeMonth(-1)">Prev</button>
+                <h3 id="cal-label"></h3>
+                <button class="toggle-btn" onclick="changeMonth(1)">Next</button>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
         </div>
-        <div class="cal-grid" id="cal-grid"></div>
     </div>
 </main>
 
