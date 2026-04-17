@@ -1,5 +1,4 @@
- const events = [
-       {
+ const events = [{
                             id: 1,
                             title: "Entrepreneurship Summit",
                             club: "Entrepreneurship Cell CET",
