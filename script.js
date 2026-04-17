@@ -170,7 +170,7 @@ function renderCalendar() {
         grid.innerHTML += `
             <div class="cal-cell">
                 <span style="font-size:0.75rem; color:#999; font-weight:bold;">${d}</span>
-                ${dayEvents.map(e => `<a href="${e.formLink}" class="cal-ev-link ${e.isFree ? '' : 'paid'}">${e.title}</a>`).join('')}
+                ${dayEvents.map(e => `<a href="${e.formLink}" class="cal-ev-link target="_blank" ${e.isFree ? '' : 'paid'}">${e.title}</a>`).join('')}
             </div>`;
     }
 }
