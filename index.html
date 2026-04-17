@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventLOGIX</title>
+    <title>EventLOGIX | CET Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>EventLOGIX</h1>
-        <p>The Official CET Campus workshop & Hackathon Portal</p>
-    </header>
+<header>
+    <h1>EventLOGIX</h1>
+    <p>CET Campus Event Portal</p>
+</header>
 
-    <main>
-        
-        <section class="controls">
-            <button id="btn-list" class="toggle-btn active" onclick="switchView('list')">List View</button>
-            <button id="btn-calendar" class="toggle-btn" onclick="switchView('calendar')">Calendar View</button>
-        </section>
+<main>
+    <div class="controls">
+        <button id="btn-list" class="toggle-btn active" onclick="switchView('list')">List View</button>
+        <button id="btn-calendar" class="toggle-btn" onclick="switchView('calendar')">Calendar View</button>
+    </div>
 
-        <div id="list-view" class="active">
-            <div id="event-container" class="grid-container"></div>
-        </div>
+    <div id="list-view" class="active">
+        <div id="event-container" class="event-grid"></div>
+    </div>
 
-        <div id="calendar-view">
-            <div class="calendar-header">
-                <button class="toggle-btn" onclick="changeMonth(-1)">&#8592; Prev</button>
-                <h2 id="calendar-month-year"></h2>
-                <button class="toggle-btn" onclick="changeMonth(1)">Next &#8594;</button>
+    <div id="calendar-view">
+        <div class="cal-wrapper">
+            <div class="cal-nav">
+                <button class="toggle-btn" onclick="changeMonth(-1)">Prev</button>
+                <h3 id="cal-label"></h3>
+                <button class="toggle-btn" onclick="changeMonth(1)">Next</button>
             </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
+            <div class="cal-grid" id="cal-grid"></div>
         </div>
+    </div>
+</main>
 
-    </main>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
