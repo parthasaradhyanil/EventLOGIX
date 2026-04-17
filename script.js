@@ -70,4 +70,4 @@ function changeMonth(dir) {
 
 // Ensure data loads when the page opens
 window.onload = renderList;
-};
+
