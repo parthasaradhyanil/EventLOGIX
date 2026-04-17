@@ -1,11 +1,124 @@
-const events = [
-    { id: 1, title: "Entrepreneurship Summit", club: "E-Cell CET", date: "2026-07-15", location: "Auditorium", isFree: false, costText: "Paid (₹350)", dutyLeave: false, formLink: "#" },
-    { id: 2, title: "Cybersecurity Bootcamp", club: "TinkerHub CET", date: "2026-04-18", location: "CS Seminar Hall", isFree: false, costText: "Paid (₹150)", dutyLeave: false, formLink: "#" },
-    { id: 3, title: "Eco Car Assembly", club: "Eco Car Club", date: "2026-04-25", location: "Mech Workshop", isFree: true, costText: "Free", dutyLeave: true, formLink: "#" },
-    { id: 4, title: "AI & ML Workshop", club: "AI Club CET", date: "2026-05-05", location: "CS Lab 2", isFree: false, costText: "Paid (₹200)", dutyLeave: false, formLink: "#" },
-    { id: 5, title: "Robotics Challenge", club: "Robotics Club", date: "2026-05-15", location: "Main Block", isFree: true, costText: "Free", dutyLeave: true, formLink: "#" }
-];
+ const events = [
+       {
+                            id: 1,
+                            title: "Entrepreneurship Summit",
+                            club: "Entrepreneurship Cell CET",
+                            date: "2026-07-15",
+                            location: "Auditorium",
+                            isFree: false,
+                            costText: "Paid (₹350)",
+                            dutyLeave: false,
+                            formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                        },
+            {
+                id: 2,
+                title: "Cybersecurity Bootcamp",
+                club: "TinkerHub CET",
+                date: "2026-04-18",
+                location: "CS Dept Seminar Hall",
+                isFree: false,
+                costText: "Paid (₹150)",
+                dutyLeave: false,
+                formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+            },
 
+            {
+                id: 3,
+                title: "Eco Car Final Assembly",
+                club: "Eco Car Club",
+                date: "2026-04-25",
+                location: "Mechanical Workshop",
+                isFree: true,
+                costText: "Free",
+                dutyLeave: true,
+                formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+            },
+            {
+                id: 4,
+                title: "AI & ML Workshop",
+                club: "AI Club CET",
+                date: "2026-05-05",
+                location: "CS Dept Lab 2",
+                isFree: false,
+                costText: "Paid (₹200)",
+                dutyLeave: false,
+                formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+            },{
+                id: 5,
+                title: "Robotics Challenge",
+                club: "Robotics Club",
+                date: "2026-05-15",
+                location: "main block",
+                isFree: true,
+                costText: "Free",
+                dutyLeave: true,
+                formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+            },
+                {
+                    id: 6,
+                    title: "Hackathon 2026",
+                    club: "Coding Club CET",
+                    date: "2026-05-20",
+                    location: "CS Dept Seminar Hall",
+                    isFree: false,
+                    costText: "Paid (₹300)",
+                    dutyLeave: false,
+                    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                },
+                    {
+                        id: 7,
+                        title: "Sustainability Symposium",
+                        club: "Environment Club",
+                        date: "2026-06-10",
+                        location: "Auditorium",
+                        isFree: true,
+                        costText: "Free",
+                        dutyLeave: true,
+                        formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                    },
+                    {
+                        id: 8,
+                        title: "Data Science Workshop",
+                        club: "Data Science Club CET",
+                        date: "2026-06-20",
+                        location: "CS Dept Lab 1",
+                        isFree: false,
+                        costText: "Paid (₹250)",
+                        dutyLeave: false,
+                        formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                    },
+                        {
+                            id: 9,
+                            title: "Cultural Fest",
+                            club: "Cultural Club CET",
+                            date: "2026-07-05",
+                            location: "Open Grounds",
+                            isFree: true,
+                            costText: "Free",
+                            dutyLeave: true,
+                            formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                        },
+                        {
+                            id: 10,
+                            title: "Entrepreneurship Summit",
+                            club: "Entrepreneurship Cell CET",
+                            date: "2026-07-15",
+                            location: "Auditorium",
+                            isFree: false,
+                            costText: "Paid (₹350)",
+                            dutyLeave: false,
+                            formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc_j4WMgxHCGVYMTfJOaY2FZp9O6i1pUC7nRls2keED-490Xw/viewform?usp=publish-editor"
+                        }
+
+
+
+
+
+
+
+
+
+        ];
 let current = new Date(2026, 3, 1); // Start at April 2026
 
 function switchView(view) {
