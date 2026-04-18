@@ -204,7 +204,7 @@ function renderCalendar() {
             <div class="cal-cell">
                 <span style="font-size:0.75rem; color: lightgray; font-weight:bold;">${d}</span>
                 ${dayEvents.map(e => `
-                    href="${e.formLink}"  target="_blank" class="cal-ev-link  ${e.isFree ? '' : 'paid'}">
+                <a href="${e.formLink}"  target="_blank" class="cal-ev-link  ${e.isFree ? '' : 'paid'}">
                         ${e.title}
                     </a>
                 `).join('')}
